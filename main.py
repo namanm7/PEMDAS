@@ -1,7 +1,7 @@
 operations = ['-', '+', '/', '*', '^']
 
 def getInput():
-    exp = input("Enter a valid math expression\n")
+    exp = input("Enter a valid math expression: ")
     return exp
 
 def findParenthesis(exp):
@@ -24,6 +24,10 @@ def solveAS(exp):
     add = exp.find('+')
     if sub == -1 and add == -1:
         return exp
+    if sub == 0:
+        return '-' + solveAS(exp[1:])
+    if add == 0:
+        return solveAS(exp[1:])
     a = min(sub, add)
     if add == -1:
         a = sub
@@ -123,7 +127,11 @@ def solvePower(exp):
 def solveExpression(exp):
     a, b = findParenthesis(exp)
     if a != -1:
-        exp = exp[:a-1] + solveExpression(exp[a:b]) + exp[b+1:]
+        beforeParenthesis = a -2
+        left = exp[:a-1]
+        if beforeParenthesis >= 0 and exp[beforeParenthesis] not in operations:
+           left = exp[:a-1] + '*'
+        exp = left + solveExpression(exp[a:b]) + exp[b+1:]
     exp = solvePower(exp)
     exp = solveMD(exp)
     exp = solveAS(exp)
@@ -132,4 +140,4 @@ def solveExpression(exp):
 
 
 exp = getInput()
-print(solveExpression(exp))
+print("Answer: " + solveExpression(exp))
