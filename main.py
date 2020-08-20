@@ -94,6 +94,8 @@ def solveMD(exp):
     if prod:
         quot = c1 * c2
     else:
+        if c2 == 0:
+            raise Exception('Divide By Zero')
         quot = int(c1 / c2)
     newString = exp[:left] + str(quot) + exp[right:]
     return solveMD(newString)
@@ -140,4 +142,7 @@ def solveExpression(exp):
 
 
 exp = getInput()
-print("Answer: " + solveExpression(exp))
+try:
+    print("Answer: " + solveExpression(exp))
+except Exception as ex:
+    print("Error:", ex)
