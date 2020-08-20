@@ -188,11 +188,15 @@ def solveExpression(exp):
     return exp
 
 
-while True:
-    exp = getInput()
-    if exp == 'exit':
-        break
-    try:
-        print("Answer: " + solveExpression(exp))
-    except Exception as ex:
-        print("Error:", ex)
+def main():
+    while True:
+        exp = getInput()
+        if exp == 'exit':
+            break
+        try:
+            print("Answer: " + solveExpression(exp))
+        except Exception as ex:
+            print("Error:", ex)
+
+if __name__ == '__main__':
+    main()
